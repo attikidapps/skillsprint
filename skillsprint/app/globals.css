@@ -1,0 +1,106 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------- Fraunces via Google Fonts ---------- */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&display=swap');
+
+@layer base {
+  :root {
+    --font-fraunces: 'Fraunces', Georgia, serif;
+    /* --font-geist-sans & --font-geist-mono are injected in layout.tsx */
+
+    /* Easing curves for motion */
+    --ease-out-expo:   cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-out-quart:  cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  html {
+    @apply scroll-smooth antialiased;
+    background: theme('colors.sand.50');
+    color:      theme('colors.ink.DEFAULT');
+  }
+
+  body {
+    @apply font-sans text-base;
+    /* Subtle paper grain overlay for warmth */
+    background-image:
+      radial-gradient(circle at 1px 1px, rgba(26, 31, 28, 0.035) 1px, transparent 0);
+    background-size: 24px 24px;
+  }
+
+  /* Accessible focus ring */
+  :focus-visible {
+    @apply outline-none ring-2 ring-primary-600 ring-offset-2 ring-offset-sand-50 rounded-sm;
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* Skip link */
+  .skip-link {
+    @apply sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50
+           focus:bg-ink focus:text-sand-50 focus:px-4 focus:py-2 focus:rounded-md;
+  }
+
+  /* Selection */
+  ::selection {
+    background: theme('colors.primary.800');
+    color:      theme('colors.sand.50');
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display font-medium tracking-tight text-ink;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 font-medium
+           transition-all duration-200 ease-out
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-primary {
+    @apply btn bg-ink text-sand-50 px-6 py-3 rounded-full
+           hover:bg-primary-800 hover:-translate-y-0.5
+           active:translate-y-0;
+  }
+
+  .btn-ghost {
+    @apply btn text-ink px-6 py-3 rounded-full border border-ink/15
+           hover:border-ink hover:bg-ink/5;
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-1.5 text-xs font-medium tracking-wide uppercase
+           px-3 py-1 rounded-full border border-ink/15 bg-sand-50/60 backdrop-blur-sm;
+  }
+
+  .card {
+    @apply bg-sand-50 border border-ink/10 rounded-2xl p-6
+           transition-all duration-300 ease-out;
+  }
+
+  .card-interactive {
+    @apply card hover:border-ink/25 hover:-translate-y-1 hover:shadow-[0_18px_40px_-20px_rgba(10,79,45,0.35)];
+  }
+
+  /* Fraunces "soft" variation for huge display text */
+  .display-soft {
+    font-variation-settings: 'opsz' 144, 'SOFT' 100;
+  }
+
+  /* Form field baseline */
+  .field {
+    @apply w-full rounded-lg border border-ink/20 bg-sand-50 px-4 py-3
+           focus:border-ink transition-colors;
+  }
+}
